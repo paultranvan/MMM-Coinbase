@@ -13,6 +13,8 @@
 
 span {line-height: 1;}
 
+.header {overflow: hidden;}
+.left {float: left;}
 .right {float: right;}
 .row {display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; margin-bottom: .5rem;}
 .row:last-child {margin-bottom: 0;}

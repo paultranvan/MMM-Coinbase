@@ -21,10 +21,11 @@ Module.register("MMM-Coinbase", {
 		this.balance = 0;
 		this.currency = "";
 		this.cryptoData = [];
+		this.sendSocketNotification("GET_ACCOUNTS", {apiKey: this.config.apiKey, apiSecret: this.config.apiSecret, wallet: this.config.wallet});
 	},
 
 	getHeader: function() {
-		return this.data.header + "<span class='right'>" + this.balance + " " + this.currency + "</span>";
+		return "<div class='header'><span class='left'>" + this.data.header + "</span><span class='right'>" + this.balance + " " + this.currency + "</span></div>";
 	},
 
 	getDom: function() {
