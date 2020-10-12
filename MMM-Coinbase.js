@@ -6,8 +6,8 @@ Module.register("MMM-Coinbase", {
 		wallet: ["BTC"],
 		icons: true, // currently only Bitcoin and Ethereum supported
 		label: false,
-		showBalanceInOriginalCurrency: false
-		//updateInterval: 1
+		showBalanceInOriginalCurrency: false,
+		updateInterval: 10 // in seconds
 	},
 
 	getStyles: function() {
@@ -92,7 +92,7 @@ Module.register("MMM-Coinbase", {
 			case "DOM_OBJECTS_CREATED":
 				setInterval(() => {
 					this.sendSocketNotification("GET_ACCOUNTS", {apiKey: this.config.apiKey, apiSecret: this.config.apiSecret, wallet: this.config.wallet});
-				}, 5000);
+				}, config.updateInterval * 1000);
 				
 				break;
 			}
