@@ -109,7 +109,7 @@ Module.register("MMM-Coinbase", {
             apiSecret: this.config.apiSecret,
             wallet: this.config.wallet
           });
-        }, config.updateInterval * 1000);
+        }, this.config.updateInterval * 1000);
 
         break;
     }
