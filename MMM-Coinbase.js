@@ -5,8 +5,9 @@ Module.register("MMM-Coinbase", {
 		apiSecret: "",
 		wallet: ["BTC"],
 		icons: true, // currently only Bitcoin and Ethereum supported
-		label: false
-		// updateInterval: 1
+		label: false,
+		showBalanceInOriginalCurrency: false
+		//updateInterval: 1
 	},
 
 	getStyles: function() {
@@ -36,6 +37,12 @@ Module.register("MMM-Coinbase", {
 		const config = this.config;
 		const icons = this.icons;
 		
+		if (config.showBalanceInOriginalCurrency) {
+			balanceKey = "balance"
+		} else {
+			balanceKey = "native_balance"
+		}
+
 		this.cryptoData.forEach((accts) => {
 			module.balance += parseInt(accts.native_balance.amount);
 			
@@ -68,7 +75,8 @@ Module.register("MMM-Coinbase", {
 
 				const columnAmountElement = document.createElement("div");
 				columnAmountElement.className = "column";
-				columnAmountElement.innerHTML = "<span>" + accts.balance.amount + "</span>";
+				const accountAmount = accts[balanceKey].amount
+				columnAmountElement.innerHTML = "<span> " + accountAmount + "</span>";
 
 				rowElement.appendChild(columnAmountElement);
 				elem.appendChild(rowElement);
@@ -97,7 +105,6 @@ Module.register("MMM-Coinbase", {
 				this.currency = payload[0].native_balance.currency;
 				this.updateDom();
 				this.balance = 0;
-
 				break;
 		}
 	},
