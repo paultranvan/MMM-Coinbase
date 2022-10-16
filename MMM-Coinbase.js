@@ -32,6 +32,7 @@ Module.register("MMM-Coinbase", {
     return (
       "<div class='header'><span class='left'>" +
       this.data.header +
+      ": " +
       "</span><span class='right'>" +
       this.balance +
       " " +
@@ -100,6 +101,14 @@ Module.register("MMM-Coinbase", {
     return elem;
   },
 
+  computeTotalBalance: function () {
+    let total = 0;
+    for (const crypto of this.cryptoData) {
+      total += parseInt(crypto.native_balance.amount);
+    }
+    this.balance = total;
+  },
+
   notificationReceived: function (notification) {
     switch (notification) {
       case "DOM_OBJECTS_CREATED":
@@ -120,8 +129,8 @@ Module.register("MMM-Coinbase", {
       case "ACCOUNTS":
         this.cryptoData = payload;
         this.currency = payload[0].native_balance.currency;
+        this.computeTotalBalance();
         this.updateDom();
-        this.balance = 0;
         break;
     }
   }
